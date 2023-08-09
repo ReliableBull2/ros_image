@@ -25,6 +25,10 @@ ARUCO_DICT = {
 }
 
 def aruco_display(corners, ids, rejected, image):
+
+	#init aruco center
+	cX = -1
+	cY = -1
 	if len(corners) > 0:
 		# flatten the ArUco IDs list
 		ids = ids.flatten()
@@ -48,10 +52,10 @@ def aruco_display(corners, ids, rejected, image):
 			# marker
 			cX = int((topLeft[0] + bottomRight[0]) / 2.0)
 			cY = int((topLeft[1] + bottomRight[1]) / 2.0)
-			cv2.circle(image, (cX, cY), 4, (0, 0, 255), -1)
+			#cv2.circle(image, (cX, cY), 2, (0, 0, 255), -1)
 			# draw the ArUco marker ID on the image
 			cv2.putText(image, str(markerID),(topLeft[0], topLeft[1] - 10), cv2.FONT_HERSHEY_SIMPLEX,
 				0.5, (0, 255, 0), 2)
-			print("[Inference] ArUco marker ID: {}".format(markerID))
+			#print("[Inference] ArUco marker ID: {}".format(markerID))
 			# show the output image
-	return image
+	return (cX , cY , image)
